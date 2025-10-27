@@ -7,17 +7,16 @@ from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
 
 application = Flask(__name__)
-app = application
 
 
-# Home Route
-@app.route('/')
+
+@application.route('/')
 def index():
     return render_template('index.html')
 
 
-# Prediction Route
-@app.route('/predictdata', methods=['GET', 'POST'])
+
+@application.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
@@ -50,7 +49,13 @@ def predict_datapoint():
             return render_template('home.html', results="Error occurred during prediction.")
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))  # Safe for both local & AWS
-    app.run(host="0.0.0.0", port=port, debug=True)
+# Health check route (required by EB)
+@application.route('/health') 
+def health():
+    return "OK"
 
+
+if __name__ == "__main__":
+    # Changed port to 5000 for Elastic Beanstalk
+    port = int(os.environ.get("PORT", 5000))
+    application.run(host="0.0.0.0", port=port, debug=False) 
