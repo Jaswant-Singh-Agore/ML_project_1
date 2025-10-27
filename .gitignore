@@ -113,6 +113,12 @@ myenv/
 myenv/
 venv/
 .env/
+__pycache__/
+logs/
+notebook/
+catboost_info/
+*.pyc
+.DS_Store
 
 # Spyder project settings
 .spyderproject
