@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import os
 import numpy as np
 import pandas as pd
@@ -9,12 +9,13 @@ application = Flask(__name__)
 
 @application.route('/')
 def index():
-    return render_template('index.html')
+    return redirect(url_for('predict_datapoint'))
+    
 
 @application.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
-        return render_template('home.html')
+        return render_template('home.html')   # prediction form
     else:
         try:
             data = CustomData(
@@ -42,9 +43,6 @@ def predict_datapoint():
             logging.error(f"Error during prediction: {str(e)}")
             return render_template('home.html', results="Error occurred during prediction.")
 
-@application.route('/health') 
-def health():
-    return "OK"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
