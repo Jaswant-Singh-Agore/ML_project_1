@@ -7,15 +7,16 @@ from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
 application = Flask(__name__)
 
+
 @application.route('/')
-def index():
+def home():
     return redirect(url_for('predict_datapoint'))
-    
 
 @application.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
-        return render_template('home.html')   # prediction form
+        return render_template('home.html')
+
     else:
         try:
             data = CustomData(
@@ -42,6 +43,7 @@ def predict_datapoint():
         except Exception as e:
             logging.error(f"Error during prediction: {str(e)}")
             return render_template('home.html', results="Error occurred during prediction.")
+
 
 
 if __name__ == "__main__":

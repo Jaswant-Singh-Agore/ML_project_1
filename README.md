@@ -2,6 +2,12 @@
     A complete Machine Learning web application that predicts a student’s Math Score based on demographic and academic details.
     This project demonstrates the full workflow from data ingestion → preprocessing → model training → web deployment.
 
+🌐 Live Web App
+
+🚀 Try it out here:
+🔹 Render Deployment: [Click to Open Render App](https://student-perfromance-predictor-1.onrender.com)
+
+
 🧠 About the Project
     This project was built to understand how a real-world ML pipeline works — from preparing data and training multiple models to serving predictions via a Flask web interface.
 
