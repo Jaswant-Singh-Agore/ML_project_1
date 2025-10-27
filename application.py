@@ -5,22 +5,16 @@ import pandas as pd
 from src.logger import logging
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
-
 application = Flask(__name__)
-
-
 
 @application.route('/')
 def index():
     return render_template('index.html')
 
-
-
 @application.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
-
     else:
         try:
             data = CustomData(
@@ -48,14 +42,10 @@ def predict_datapoint():
             logging.error(f"Error during prediction: {str(e)}")
             return render_template('home.html', results="Error occurred during prediction.")
 
-
-# Health check route (required by EB)
 @application.route('/health') 
 def health():
     return "OK"
 
-
 if __name__ == "__main__":
-    # Changed port to 5000 for Elastic Beanstalk
     port = int(os.environ.get("PORT", 5000))
-    application.run(host="0.0.0.0", port=port, debug=False) 
+    application.run(host="0.0.0.0", port=port, debug=False)
